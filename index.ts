@@ -34,10 +34,7 @@ app.options("/send-contact", (_req, res) => {
 
 app.post("/send-contact", async (req, res) => {
   try {
-    const ipHeader = req.headers["x-forwarded-for"];
-    const ip = Array.isArray(ipHeader)
-      ? ipHeader[0]
-      : ipHeader?.split(",")[0]?.trim() || req.ip || "unknown";
+    const ip = req.ip || "unknown";
 
     if (await isRateLimited(ip)) {
       return res.status(429).json({
