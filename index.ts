@@ -2,7 +2,7 @@ import "dotenv/config";
 import { createClient } from "@supabase/supabase-js";
 import express from "express";
 import cors from "cors";
-import { isRateLimited } from "./rate_limit";
+import { incrementRateLimit, isRateLimited } from "./rate_limit";
 import { sendContactEmail } from "./email";
 
 export const client = () =>
@@ -53,6 +53,7 @@ app.post("/send-contact", async (req, res) => {
 
     const result = await sendContactEmail(body);
 
+    incrementRateLimit(ip);
     return res.json({
       success: true,
       message: "Email sent successfully",
