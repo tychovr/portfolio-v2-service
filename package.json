@@ -16,9 +16,7 @@
     "dotenv": "^17.2.3",
     "express": "^5.1.0",
     "luxon": "^3.7.2",
-    "nodemailer": "^6.9.15"
-  },
-  "devDependencies": {
+    "nodemailer": "^6.9.15",
     "tsx": "^4.19.0"
   }
 }
