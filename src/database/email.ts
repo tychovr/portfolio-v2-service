@@ -1,13 +1,7 @@
 import { DateTime } from "luxon";
 import nodemailer from "nodemailer";
 import { emailMarkup } from "../utils/emailMarkup";
-
-export interface ContactFormData {
-  name: string;
-  email: string;
-  subject: string;
-  message: string;
-}
+import { ContactFormData } from "../types";
 
 export async function sendContactEmail(data: ContactFormData) {
   const transporter = nodemailer.createTransport({

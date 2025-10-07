@@ -2,8 +2,8 @@ import "dotenv/config";
 import { createClient } from "@supabase/supabase-js";
 import express from "express";
 import cors from "cors";
-import { incrementRateLimit, isRateLimited } from "./rate_limit";
-import { sendContactEmail } from "./email";
+import { incrementRateLimit, isRateLimited } from "./src/database/rate_limit";
+import { sendContactEmail } from "./src/database/email";
 
 export const client = () =>
   createClient(
@@ -71,7 +71,8 @@ app.use((_req, res) => {
   res.status(404).json({ error: "Not found" });
 });
 
-const PORT = process.env.PORT || 8787;
-app.listen(PORT, () => {
-  console.log(`SMTP contact server running on http://localhost:${PORT}`);
+const PORT = Number(process.env.PORT) || 8787;
+const HOST = process.env.HOST || "0.0.0.0";
+app.listen(PORT, HOST, () => {
+  console.log(`SMTP contact server running on http://${HOST}:${PORT}`);
 });

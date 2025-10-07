@@ -1,0 +1,24 @@
+{
+  "name": "portfolio-v2-service",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/tychovr/portfolio-v2-service.git",
+  "author": "Tycho van Rosmalen <tycho.vanrosmalen@plugz.dev>",
+  "license": "MIT",
+  "type": "module",
+  "scripts": {
+    "start": "tsx index.ts",
+    "dev": "tsx watch index.ts"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.74.0",
+    "cors": "^2.8.5",
+    "dotenv": "^17.2.3",
+    "express": "^5.1.0",
+    "luxon": "^3.7.2",
+    "nodemailer": "^6.9.15"
+  },
+  "devDependencies": {
+    "tsx": "^4.19.0"
+  }
+}

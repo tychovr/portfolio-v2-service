@@ -1,5 +1,5 @@
 import { DateTime } from "luxon";
-import { client, kvStore } from "./index";
+import { client, kvStore } from "../../index";
 
 export async function isRateLimited(ip: string) {
   const db = client();
