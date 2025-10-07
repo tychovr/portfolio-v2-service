@@ -1,8 +1,11 @@
 services:
-  service:
-    build:
-      context: .
-    environment:
-      NODE_ENV: production
+  backend:
+    build: .
+    container_name: portfolio_backend
     ports:
-      - 8787:8787
+      - "127.0.0.1:8787:8787"
+    environment:
+      - PORT=8787
+    env_file:
+      - ./.env
+    restart: unless-stopped

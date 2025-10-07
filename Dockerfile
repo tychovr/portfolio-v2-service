@@ -1,19 +1,14 @@
-ARG NODE_VERSION=21.2.0
+FROM node:20-alpine
+WORKDIR /app
 
-FROM node:${NODE_VERSION}-alpine
+RUN corepack enable || true
 
-ENV NODE_ENV production
+COPY package.json yarn.lock ./
 
-WORKDIR /usr/src/app
-
-COPY package.json ./
-
-RUN npm install --omit=peer
-
-USER node
-
+RUN yarn install --frozen-lockfile || yarn install --immutable
 COPY . .
 
+ENV NODE_ENV=production
 EXPOSE 8787
 
-CMD npm start
+CMD ["yarn, "start"]

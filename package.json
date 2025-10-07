@@ -7,7 +7,7 @@
   "license": "MIT",
   "type": "module",
   "scripts": {
-    "start": "tsx index.ts",
+    "start": "node index.ts",
     "dev": "tsx watch index.ts"
   },
   "dependencies": {
