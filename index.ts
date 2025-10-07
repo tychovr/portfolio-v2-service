@@ -10,18 +10,25 @@ export const client = () =>
     process.env.SUPABASE_URL || "",
     process.env.SUPABASE_SERVICE_ROLE_KEY || ""
   );
+
 export const kvStore = "kv_store_067e96cc";
+
+const corsOptions: cors.CorsOptions = {
+  origin: [
+    "http://localhost:3000",
+    "https://tychovanrosmalen.nl",
+    "http://0.0.0.0:3000/",
+  ],
+  methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization"],
+  credentials: false,
+  optionsSuccessStatus: 204,
+};
 
 const app = express();
 app.set("trust proxy", true);
 app.use(express.json());
-app.use(
-  cors({
-    origin: "*",
-    methods: ["POST", "OPTIONS"],
-    allowedHeaders: ["Content-Type"],
-  })
-);
+app.use(cors(corsOptions));
 
 app.options("/send-contact", (_req, res) => {
   res.set({
