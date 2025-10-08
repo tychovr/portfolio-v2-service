@@ -4,14 +4,17 @@ import { emailMarkup } from "../utils/emailMarkup";
 import { ContactFormData } from "../types";
 
 export async function sendContactEmail(data: ContactFormData) {
+  const port = Number(process.env.SMTP_PORT || 587)
   const transporter = nodemailer.createTransport({
     host: process.env.SMTP_HOST!,
-    port: Number(process.env.SMTP_POST || 587),
-    secure: Number(process.env.SMTP_POST) === 465,
+    port: port,
     auth: {
-      user: process.env.EMAIL_USER,
-      pass: process.env.EMAIL_PASSWORD,
+      user: process.env.SMTP_USER || '',
+      pass: process.env.SMTP_PASSWORD || '',
     },
+    connectionTimeout: 15000,
+    greetingTimeout: 15000,
+    socketTimeout: 15000,
   });
 
   const text = `
@@ -30,11 +33,15 @@ Server: Express (SMTP)
 `.trim();
 
   const info = await transporter.sendMail({
-    from: `Portfolio Contact Form - ${data.name}`,
+    from: { name: data.name, address: 'noreply@tychovanrosmalen.nl'},
     to: process.env.EMAIL_TO!,
     subject: `Portfolio Contact: ${data.subject}`,
     text,
     html: emailMarkup(data),
+    envelope: {
+      from: 'noreply@tychovanrosmalen.nl',
+      to: process.env.EMAIL_TO!
+   }
   });
 
   return { messageId: info.messageId };
