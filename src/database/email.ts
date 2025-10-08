@@ -6,7 +6,7 @@ import { ContactFormData } from "../types";
 export async function sendContactEmail(data: ContactFormData) {
   const transporter = nodemailer.createTransport({
     host: process.env.SMTP_HOST!,
-    post: Number(process.env.SMTP_POST || 587),
+    port: Number(process.env.SMTP_POST || 587),
     secure: Number(process.env.SMTP_POST) === 465,
     auth: {
       user: process.env.EMAIL_USER,
