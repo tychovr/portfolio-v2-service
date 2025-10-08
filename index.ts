@@ -30,6 +30,8 @@ app.set("trust proxy", true);
 app.use(express.json());
 app.use(cors(corsOptions));
 
+app.get('/health', (_req, res) => res.send('ok'));
+
 app.options("/send-contact", (_req, res) => {
   res.set({
     "Access-Control-Allow-Origin": "*",
