@@ -2,8 +2,8 @@ import "dotenv/config";
 import { createClient } from "@supabase/supabase-js";
 import express from "express";
 import cors from "cors";
-import { incrementRateLimit, isRateLimited } from "./src/database/rate_limit";
-import { sendContactEmail } from "./src/database/email";
+import { incrementRateLimit, isRateLimited } from "./database/rate_limit";
+import { sendContactEmail } from "./database/email";
 
 export const client = () =>
   createClient(

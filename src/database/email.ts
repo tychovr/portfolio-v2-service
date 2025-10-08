@@ -5,10 +5,12 @@ import { ContactFormData } from "../types";
 
 export async function sendContactEmail(data: ContactFormData) {
   const transporter = nodemailer.createTransport({
-    service: "gmail",
+    host: process.env.SMTP_HOST!,
+    post: Number(process.env.SMTP_POST || 587),
+    secure: Number(process.env.SMTP_POST) === 465,
     auth: {
       user: process.env.EMAIL_USER,
-      pass: process.env.EMAIL_APP_PASSWORD,
+      pass: process.env.EMAIL_PASSWORD,
     },
   });
 
@@ -28,8 +30,8 @@ Server: Express (SMTP)
 `.trim();
 
   const info = await transporter.sendMail({
-    from: `Portfolio Contact Form - ${process.env.EMAIL_USER}`,
-    to: process.env.EMAIL_TO,
+    from: `Portfolio Contact Form - ${data.name}`,
+    to: process.env.EMAIL_TO!,
     subject: `Portfolio Contact: ${data.subject}`,
     text,
     html: emailMarkup(data),
