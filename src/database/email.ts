@@ -8,9 +8,10 @@ export async function sendContactEmail(data: ContactFormData) {
   const transporter = nodemailer.createTransport({
     host: process.env.SMTP_HOST!,
     port: port,
+    secure: false,
     auth: {
-      user: process.env.SMTP_USER || '',
-      pass: process.env.SMTP_PASSWORD || '',
+      user: process.env.SMTP_USER!,
+      pass: process.env.SMTP_PASSWORD!,
     },
     connectionTimeout: 15000,
     greetingTimeout: 15000,
